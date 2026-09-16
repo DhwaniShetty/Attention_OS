@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AttentionOS</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            🧠
+
+            <span>AttentionOS</span>
+
+        </div>
+
+
+        <nav>
+
+            <button
+                class="nav-item active"
+                onclick="showSection('dashboard')"
+            >
+
+                🏠
+                Dashboard
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="showSection('learning')"
+            >
+
+                🧠
+                Learning
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="showSection('history')"
+            >
+
+                📊
+                History
+
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="agent-status">
+
+                <span class="status-dot"></span>
+
+                Agent Online
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1 id="pageTitle">
+                    Attention Dashboard
+                </h1>
+
+                <p>
+                    Your AI cognitive environment manager
+                </p>
+
+            </div>
+
+
+            <div class="clock">
+
+                <span id="currentTime">
+                    00:00:00
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- AGENT STATUS PANEL -->
+
+        <div class="agent-status-panel" style="background: #1e293b; color: white; padding: 12px 25px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin: 25px auto; max-width: 1200px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+            <div class="status-header" style="display: flex; align-items: center; gap: 10px;">
+                <span class="status-indicator" id="mainStatusIndicator" style="font-size: 12px;">🟢</span>
+                <strong id="mainStatusText" style="letter-spacing: 1px; font-size: 14px;">ATTENTIONOS ONLINE</strong>
+            </div>
+            <div class="status-grid" style="display: flex; gap: 30px; font-size: 12px;">
+                <div class="status-item">
+                    <span style="color: #94a3b8; margin-right: 5px;">AI MODEL</span> 
+                    <strong style="color: #4ade80;">ONLINE</strong>
+                </div>
+                <div class="status-item">
+                    <span style="color: #94a3b8; margin-right: 5px;">DECISION</span> 
+                    <strong style="color: #4ade80;">ACTIVE</strong>
+                </div>
+                <div class="status-item">
+                    <span style="color: #94a3b8; margin-right: 5px;">LEARNING</span> 
+                    <strong style="color: #4ade80;">ACTIVE</strong>
+                </div>
+                <div class="status-item">
+                    <span style="color: #94a3b8; margin-right: 5px;">SIMULATION</span> 
+                    <strong id="simStatusText" style="color: #facc15;">READY</strong>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- DASHBOARD -->
+
+        <section
+            id="dashboard"
+            class="page-section"
+        >
+
+
+            <!-- TOP CARDS -->
+
+            <div class="stats">
+
+
+                <div class="card" style="grid-column: span 2;">
+
+                    <div class="card-label">
+
+                        CURRENT ATTENTION STATE
+
+                    </div>
+
+
+                    <div
+                        id="attentionState"
+                        class="big-value focus"
+                        style="margin-bottom: 15px;"
+                    >
+
+                        🔵 DEEP FOCUS
+
+                    </div>
+
+
+                    <div class="small-text" style="display: flex; gap: 30px; font-size: 14px; margin-bottom: 10px;">
+
+                        <div>
+                            Focus Score: <strong id="focusScoreVal" style="color: #0f172a; font-size: 16px;">87%</strong>
+                        </div>
+
+                        <div>
+                            ML Confidence: <strong id="mlConfidenceScore" style="color: #0f172a; font-size: 16px;">--</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="progress" style="margin-top: 15px;">
+
+                        <div
+                            id="focusBar"
+                            class="progress-fill"
+                            style="width:87%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div class="card-label">
+
+                        FOCUS SESSION
+
+                    </div>
+
+
+                    <div
+                        id="timer"
+                        class="big-value"
+                    >
+
+                        00:00:00
+
+                    </div>
+
+
+                    <button
+                        id="focusButton"
+                        onclick="toggleFocus()"
+                    >
+
+                        START FOCUS
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- WORKSPACE -->
+
+            <div class="grid">
+
+
+                <!-- CURRENT ACTIVITY -->
+
+                <div class="card">
+
+                    <div class="section-title">
+
+                        Current Activity
+
+                    </div>
+
+
+                    <div class="activity-box">
+
+                        <div class="activity-icon">
+
+                            💻
+
+                        </div>
+
+
+                        <div>
+
+                            <h3 id="activityText">
+
+                                Software Development
+
+                            </h3>
+
+
+                            <p>
+
+                                Deep work session
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <label>
+                        Activity
+                    </label>
+
+
+                    <select id="activity">
+
+                        <option value="deep_work">
+                            Deep Work
+                        </option>
+
+                        <option value="meeting">
+                            Meeting
+                        </option>
+
+                        <option value="idle">
+                            Idle
+                        </option>
+
+                        <option value="moderate">
+                            Moderate Work
+                        </option>
+
+                    </select>
+
+
+                    <label>
+                        Focus Duration (minutes)
+                    </label>
+
+
+                    <input
+                        id="focusDuration"
+                        type="number"
+                        value="90"
+                        min="0"
+                    >
+
+                </div>
+
+
+
+                <!-- SIMULATOR -->
+
+                <div class="card">
+
+                    <div class="section-title">
+
+                        Notification Simulator
+
+                    </div>
+
+
+                    <p class="description">
+
+                        Send an event to the AI agent
+                        and observe its decision.
+
+                    </p>
+
+
+                    <label>
+
+                        Incoming Notification
+
+                    </label>
+
+
+                    <select id="notification">
+
+                        <option value="social">
+                            📱 Social Media
+                        </option>
+
+                        <option value="work">
+                            💼 Work
+                        </option>
+
+                        <option value="calendar">
+                            📅 Calendar
+                        </option>
+
+                        <option value="college">
+                            🎓 College
+                        </option>
+
+                        <option value="personal">
+                            👤 Personal
+                        </option>
+
+                        <option value="emergency">
+                            🚨 Emergency
+                        </option>
+
+                        <option value="advertisement">
+                            📢 Advertisement
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        class="analyze-button"
+                        onclick="analyzeNotification()"
+                    >
+
+                        🤖 ASK AGENT
+
+                    </button>
+
+<div class="simulation-controls">
+
+    <button
+        class="simulation-button"
+        onclick="startSimulation()"
+    >
+        ▶ START AI DEMO
+    </button>
+
+    <button
+        class="stop-button"
+        onclick="stopSimulation()"
+    >
+        ■ STOP
+    </button>
+
+</div>
+
+<div
+    id="simulationStatus"
+    class="simulation-status"
+>
+    Simulation inactive
+</div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DECISION -->
+
+            <div
+                id="decisionCard"
+                class="card decision-card hidden"
+            >
+
+<div class="ai-analysis">
+
+    <div class="decision-factors-grid" style="margin-top: 15px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+        <div style="background: #1e293b; color: white; padding: 12px 15px; font-weight: bold; font-size: 13px; letter-spacing: 1px;">
+            DECISION FACTORS
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid #e5e7eb; background: #ffffff;">
+            <span style="color: #64748b; font-weight: bold; font-size: 13px;">Attention</span>
+            <strong id="factorAttentionState">—</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid #e5e7eb; background: #f8fafc;">
+            <span style="color: #64748b; font-weight: bold; font-size: 13px;">ML Confidence</span>
+            <strong id="mlConfidence">—</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid #e5e7eb; background: #ffffff;">
+            <span style="color: #64748b; font-weight: bold; font-size: 13px;">Importance</span>
+            <strong id="importance">—</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid #e5e7eb; background: #f8fafc;">
+            <span style="color: #64748b; font-weight: bold; font-size: 13px;">Interrupt Cost</span>
+            <strong id="interruptionCost">—</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid #e5e7eb; background: #ffffff;">
+            <span style="color: #64748b; font-weight: bold; font-size: 13px;">User Preference</span>
+            <strong id="basePreference">—</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 15px 15px; background: #f8fafc; border-top: 2px solid #e5e7eb;">
+            <span style="font-weight: bold; font-size: 14px; letter-spacing: 1px;">ACTION</span>
+            <strong id="decision" style="font-size: 16px;">—</strong>
+        </div>
+    </div>
+
+    <div class="reason-box">
+        <p id="agentReason" style="margin: 0; font-size: 14px;">Waiting for analysis...</p>
+    </div>
+
+</div>
+
+
+                <div class="feedback-title">
+
+                    Help the agent learn:
+
+                </div>
+
+
+                <div class="feedback">
+
+                    <button
+                        onclick="sendFeedback('allow')"
+                    >
+
+                        👍 I would allow this
+
+                    </button>
+
+
+                    <button
+                        onclick="sendFeedback('block')"
+                    >
+
+                        👎 I would block this
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- HISTORY -->
+
+            <div class="card">
+
+                <div class="section-title">
+
+                    Recent Agent Decisions
+
+                </div>
+
+
+                <div id="history">
+
+                    <div class="empty">
+
+                        No decisions yet.
+
+                        <br>
+
+                        Simulate a notification above.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+<!-- AGENT PERFORMANCE -->
+
+<div class="card">
+
+    <div class="section-title">
+        📊 Agent Performance
+    </div>
+
+    <div class="performance-grid">
+
+        <div class="metric">
+
+            <span class="metric-value" id="totalEvents">
+                0
+            </span>
+
+            <span class="metric-label">
+                EVENTS ANALYZED
+            </span>
+
+        </div>
+
+
+        <div class="metric">
+
+            <span class="metric-value" id="blockedEvents">
+                0
+            </span>
+
+            <span class="metric-label">
+                BLOCKED
+            </span>
+
+        </div>
+
+
+        <div class="metric">
+
+            <span class="metric-value" id="delayedEvents">
+                0
+            </span>
+
+            <span class="metric-label">
+                DELAYED
+            </span>
+
+        </div>
+
+
+        <div class="metric">
+
+            <span class="metric-value" id="allowedEvents">
+                0
+            </span>
+
+            <span class="metric-label">
+                ALLOWED
+            </span>
+
+        </div>
+
+
+        <div class="metric">
+
+            <span class="metric-value" id="criticalEvents">
+                0
+            </span>
+
+            <span class="metric-label">
+                CRITICAL EVENTS
+            </span>
+
+        </div>
+
+
+        <div class="metric">
+
+            <span class="metric-value" id="avgConfidence">
+                0%
+            </span>
+
+            <span class="metric-label">
+                AVG CONFIDENCE
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="reduction-section">
+
+        <div class="reduction-header">
+
+            <span>
+                INTERRUPTION REDUCTION
+            </span>
+
+            <strong id="interruptionReduction">
+                0%
+            </strong>
+
+        </div>
+
+
+        <div class="progress">
+
+            <div
+                id="reductionBar"
+                class="progress-fill"
+                style="width:0%"
+            ></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+        </section>
+
+
+
+        <!-- LEARNING -->
+
+        <section
+            id="learning"
+            class="page-section hidden"
+        >
+
+            <div class="card">
+                <div class="section-title">ATTENTIONOS LEARNING</div>
+                
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
+                        <div style="color: #64748b; font-size: 11px; font-weight: bold; margin-bottom: 5px;">EVENTS PROCESSED</div>
+                        <div style="font-size: 24px; font-weight: bold;" id="eventsProcessed">0</div>
+                    </div>
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
+                        <div style="color: #64748b; font-size: 11px; font-weight: bold; margin-bottom: 5px;">USER FEEDBACK</div>
+                        <div style="font-size: 24px; font-weight: bold;" id="feedbackCount">0</div>
+                    </div>
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
+                        <div style="color: #64748b; font-size: 11px; font-weight: bold; margin-bottom: 5px;">PREFERENCES LEARNED</div>
+                        <div style="font-size: 24px; font-weight: bold;" id="preferencesLearned">0</div>
+                    </div>
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
+                        <div style="color: #64748b; font-size: 11px; font-weight: bold; margin-bottom: 5px;">CONSISTENCY</div>
+                        <div style="font-size: 24px; font-weight: bold;" id="consistencyScore">100%</div>
+                    </div>
+                </div>
+
+                <div style="border-left: 3px solid #3b82f6; padding-left: 15px; margin-bottom: 20px;">
+                    <div style="font-size: 12px; color: #64748b; font-weight: bold; margin-bottom: 5px;">LAST LEARNED PREFERENCE</div>
+                    <div id="lastLearned" style="font-size: 14px; color: #1e293b;">Waiting for user feedback...</div>
+                </div>
+
+                <div id="preferences" class="preferences"></div>
+            </div>
+
+        </section>
+
+
+
+        <!-- HISTORY -->
+
+        <section
+            id="history"
+            class="page-section hidden"
+        >
+
+            <div class="card">
+
+                <div class="section-title">
+
+                    📊 Decision History
+
+                </div>
+
+
+                <div id="fullHistory">
+
+                    No decisions recorded.
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<script>
+
+
+// -----------------------------
+// GLOBAL VARIABLES
+// -----------------------------
+
+let currentNotification = null;
+
+let decisionHistory = [];
+let feedbackCount = 0;
+let preferencesLearned = 0;
+
+let simulationRunning = false;
+
+let simulationTimer = null;
+
+let simulationIndex = 0;
+
+
+const simulationEvents = [
+
+    {
+        activity: "deep_work",
+        focus_duration: 95,
+        typing_activity: 92,
+        mouse_activity: 75,
+        notification_count: 1,
+        notification: "social"
+    },
+
+    {
+        activity: "deep_work",
+        focus_duration: 80,
+        typing_activity: 85,
+        mouse_activity: 70,
+        notification_count: 2,
+        notification: "college"
+    },
+
+    {
+        activity: "deep_work",
+        focus_duration: 85,
+        typing_activity: 90,
+        mouse_activity: 72,
+        notification_count: 1,
+        notification: "work"
+    },
+
+    {
+        activity: "deep_work",
+        focus_duration: 100,
+        typing_activity: 95,
+        mouse_activity: 80,
+        notification_count: 1,
+        notification: "emergency"
+    },
+
+    {
+        activity: "idle",
+        focus_duration: 0,
+        typing_activity: 5,
+        mouse_activity: 5,
+        notification_count: 10,
+        notification: "social"
+    }
+
+];
+
+let focusRunning = false;
+
+let focusSeconds = 0;
+
+let timerInterval = null;
+
+
+
+// -----------------------------
+// CLOCK
+// -----------------------------
+
+function updateClock() {
+
+    const now = new Date();
+
+    document.getElementById(
+        "currentTime"
+    ).innerText =
+        now.toLocaleTimeString();
+
+}
+
+setInterval(
+    updateClock,
+    1000
+);
+
+updateClock();
+
+
+
+// -----------------------------
+// FOCUS TIMER
+// -----------------------------
+
+function toggleFocus() {
+
+    const button =
+        document.getElementById(
+            "focusButton"
+        );
+
+
+    if (!focusRunning) {
+
+        focusRunning = true;
+
+        button.innerText =
+            "STOP FOCUS";
+
+
+        timerInterval =
+            setInterval(
+                () => {
+
+                    focusSeconds++;
+
+                    updateTimer();
+
+                },
+                1000
+            );
+
+    }
+
+    else {
+
+        focusRunning = false;
+
+        button.innerText =
+            "START FOCUS";
+
+
+        clearInterval(
+            timerInterval
+        );
+
+    }
+
+}
+
+
+
+function updateTimer() {
+
+    const hours =
+        Math.floor(
+            focusSeconds / 3600
+        );
+
+
+    const minutes =
+        Math.floor(
+            (focusSeconds % 3600) / 60
+        );
+
+
+    const seconds =
+        focusSeconds % 60;
+
+
+    document.getElementById(
+        "timer"
+    ).innerText =
+
+        String(hours).padStart(2, "0")
+        + ":"
+        +
+        String(minutes).padStart(2, "0")
+        + ":"
+        +
+        String(seconds).padStart(2, "0");
+
+}
+
+
+
+// -----------------------------
+// ANALYZE NOTIFICATION
+// -----------------------------
+
+async function analyzeNotification(simEvent = null) {
+
+
+    const activity =
+        document.getElementById(
+            "activity"
+        ).value;
+
+
+    const focusDuration =
+        document.getElementById(
+            "focusDuration"
+        ).value;
+
+
+    const notification =
+        document.getElementById(
+            "notification"
+        ).value;
+
+
+    currentNotification =
+        notification;
+
+    const payload = {
+        activity: activity,
+        focus_duration: focusDuration,
+        notification: notification
+    };
+
+    if (simEvent) {
+        payload.typing_activity = simEvent.typing_activity;
+        payload.mouse_activity = simEvent.mouse_activity;
+        payload.notification_count = simEvent.notification_count;
+    }
+
+
+    const response =
+        await fetch(
+            "/analyze",
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body:
+                    JSON.stringify(payload)
+
+            }
+        );
+
+
+    const result =
+        await response.json();
+
+
+    displayDecision(
+        result
+    );
+
+
+    addHistory(
+        result
+    );
+
+}
+
+
+
+// -----------------------------
+// DISPLAY DECISION
+// -----------------------------
+
+function displayDecision(
+    result
+) {
+
+    // Top Card updates
+    document.getElementById("attentionState").textContent =
+        result.attention_state === "DEEP_FOCUS" ? "🔵 DEEP FOCUS" :
+        result.attention_state === "FOCUS" ? "🟡 FOCUS" :
+        result.attention_state === "AVAILABLE" ? "🟢 AVAILABLE" : 
+        result.attention_state === "UNAVAILABLE" ? "🔴 UNAVAILABLE" : "⚪ MODERATE";
+
+    document.getElementById("mlConfidenceScore").textContent =
+        result.ml_confidence + "%";
+
+    // Decision Factors updates
+    document.getElementById("factorAttentionState").textContent =
+        result.attention_state;
+
+    document.getElementById("mlConfidence").textContent =
+        result.ml_confidence + "%";
+
+    document.getElementById("importance").textContent =
+        result.importance + " / 100";
+
+    document.getElementById("interruptionCost").textContent =
+        result.interruption_cost + " / 100";
+
+    document.getElementById("basePreference").textContent =
+        result.notification.charAt(0).toUpperCase() + result.notification.slice(1) + ": " + result.base_preference;
+
+    document.getElementById("decision").textContent =
+        result.decision;
+
+    document.getElementById("agentReason").textContent =
+        result.reason;
+
+    document.getElementById(
+        "decisionCard"
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    updateFocusScore(
+        result
+    );
+
+}
+
+
+
+
+// -----------------------------
+// FOCUS SCORE
+// -----------------------------
+
+function updateFocusScore(
+    result
+) {
+
+
+    let score = 50;
+
+
+    if (
+        result.attention_state ===
+        "DEEP_FOCUS"
+    ) {
+
+        score = 87;
+
+    }
+
+    else if (
+        result.attention_state ===
+        "FOCUS"
+    ) {
+
+        score = 72;
+
+    }
+
+    else if (
+        result.attention_state ===
+        "UNAVAILABLE"
+    ) {
+
+        score = 60;
+
+    }
+
+    else {
+
+        score = 35;
+
+    }
+
+
+    document.getElementById(
+        "focusScore"
+    ).innerText =
+        score + "%";
+
+
+    document.getElementById(
+        "focusBar"
+    ).style.width =
+        score + "%";
+
+}
+
+
+
+function updatePerformance() {
+
+    const total =
+        decisionHistory.length;
+
+
+    const blocked =
+        decisionHistory.filter(
+            item =>
+                item.decision === "BLOCK"
+        ).length;
+
+
+    const delayed =
+        decisionHistory.filter(
+            item =>
+                item.decision === "DELAY"
+        ).length;
+
+
+    const allowed =
+        decisionHistory.filter(
+            item =>
+                item.decision === "ALLOW"
+        ).length;
+
+
+    const critical =
+        decisionHistory.filter(
+            item =>
+                item.importance >= 90
+        ).length;
+
+
+    let averageConfidence = 0;
+
+    if (total > 0) {
+        const confidenceSum = decisionHistory.reduce((sum, item) => sum + item.ml_confidence, 0);
+        averageConfidence = Math.round(confidenceSum / total);
+    }
+
+    let interruptionReduction = 0;
+
+    if (total > 0) {
+        interruptionReduction = Math.round(((blocked + delayed) / total) * 100);
+    }
+
+    document.getElementById("totalEvents").innerText = total;
+    document.getElementById("eventsProcessed").innerText = total;
+    document.getElementById("blockedEvents").innerText = blocked;
+    document.getElementById("delayedEvents").innerText = delayed;
+    document.getElementById("allowedEvents").innerText = allowed;
+    document.getElementById("criticalEvents").innerText = critical;
+    document.getElementById("avgConfidence").innerText = averageConfidence + "%";
+
+    document.getElementById("interruptionReduction").innerText =
+        interruptionReduction + "%";
+
+
+    document.getElementById(
+        "reductionBar"
+    ).style.width =
+        interruptionReduction + "%";
+
+}
+
+
+// -----------------------------
+// HISTORY
+// -----------------------------
+
+function addHistory(
+    result
+) {
+
+
+    decisionHistory.unshift(
+        result
+    );
+
+
+    if (
+        decisionHistory.length > 10
+    ) {
+
+        decisionHistory.pop();
+
+    }
+
+
+    renderHistory();
+
+    updatePerformance();
+
+}
+
+
+
+function renderHistory() {
+
+
+    const container =
+        document.getElementById(
+            "history"
+        );
+
+
+    if (
+        decisionHistory.length === 0
+    ) {
+
+        container.innerHTML =
+            "<div class='empty'>" +
+            "No decisions yet." +
+            "</div>";
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        decisionHistory
+        .map(
+            item => `
+
+            <div class="history-item">
+
+                <div>
+
+                    <strong>
+                        ${getDecisionIcon(
+                            item.decision
+                        )}
+                        ${item.notification}
+                    </strong>
+
+                    <small>
+                        Importance:
+                        ${item.importance}/100
+                    </small>
+
+                </div>
+
+                <span
+                    class="decision-tag"
+                >
+
+                    ${item.decision}
+
+                </span>
+
+            </div>
+
+        `
+        )
+        .join("");
+
+
+
+    document.getElementById(
+        "fullHistory"
+    ).innerHTML =
+        container.innerHTML;
+
+}
+
+
+
+// -----------------------------
+// LEARNING
+// -----------------------------
+
+async function sendFeedback(
+    feedback
+) {
+
+
+    if (!currentNotification) {
+
+        return;
+
+    }
+
+
+    const response =
+        await fetch(
+            "/feedback",
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body:
+                    JSON.stringify({
+
+                        notification:
+                            currentNotification,
+
+                        feedback:
+                            feedback
+
+                    })
+
+            }
+        );
+
+
+    const result =
+        await response.json();
+
+    feedbackCount++;
+    document.getElementById("feedbackCount").innerText = feedbackCount;
+    
+    preferencesLearned++;
+    document.getElementById("preferencesLearned").innerText = preferencesLearned;
+    
+    const notificationName = currentNotification.charAt(0).toUpperCase() + currentNotification.slice(1);
+    const direction = feedback === "allow" ? "Higher" : "Lower";
+    
+    document.getElementById("lastLearned").innerHTML = 
+        `<strong>${notificationName} notifications</strong> → ${direction} priority<br>` +
+        `<span style="color: #64748b; font-size: 12px; margin-top: 5px; display: block;">Importance is now ${result.new_importance}/100</span>`;
+
+    loadPreferences();
+
+}
+
+
+
+// -----------------------------
+// LOAD PREFERENCES
+// -----------------------------
+
+async function loadPreferences() {
+
+
+    const container =
+        document.getElementById(
+            "preferences"
+        );
+
+
+    container.innerHTML =
+        "<p>Learning data is stored locally by the agent.</p>";
+
+}
+
+
+
+// -----------------------------
+// NAVIGATION
+// -----------------------------
+
+function showSection(
+    sectionId
+) {
+
+
+    document
+        .querySelectorAll(
+            ".page-section"
+        )
+        .forEach(
+            section => {
+
+                section.classList.add(
+                    "hidden"
+                );
+
+            }
+        );
+
+
+    document.getElementById(
+        sectionId
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    document
+        .querySelectorAll(
+            ".nav-item"
+        )
+        .forEach(
+            item => {
+
+                item.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    event.currentTarget
+        .classList.add(
+            "active"
+        );
+
+
+    const titles = {
+
+        dashboard:
+            "Attention Dashboard",
+
+        learning:
+            "Agent Learning",
+
+        history:
+            "Decision History"
+
+    };
+
+
+    document.getElementById(
+        "pageTitle"
+    ).innerText =
+        titles[
+            sectionId
+        ];
+
+}
+
+
+
+// -----------------------------
+// HELPERS
+// -----------------------------
+
+function formatState(
+    state
+) {
+
+    return state
+        .replaceAll(
+            "_",
+            " "
+        );
+
+}
+
+
+
+function getDecisionIcon(
+    decision
+) {
+
+    if (
+        decision === "BLOCK"
+    ) {
+
+        return "🚫";
+
+    }
+
+
+    if (
+        decision === "DELAY"
+    ) {
+
+        return "⏳";
+
+    }
+
+
+    return "✅";
+
+}
+
+function startSimulation() {
+
+    if (simulationRunning) {
+        return;
+    }
+
+    simulationRunning = true;
+    simulationIndex = 0;
+
+    document.getElementById("mainStatusIndicator").innerText = "🔴";
+    document.getElementById("mainStatusText").innerText = "LIVE SIMULATION";
+    document.getElementById("simStatusText").innerText = "RUNNING";
+    document.getElementById("simStatusText").style.color = "#ef4444";
+    document.getElementById("simulationStatus").innerText = "🔴 Agent is actively monitoring...";
+
+    runNextSimulation();
+
+}
+
+
+function runNextSimulation() {
+
+    if (!simulationRunning) {
+
+        return;
+
+    }
+
+
+    if (
+        simulationIndex >=
+        simulationEvents.length
+    ) {
+
+        stopSimulation();
+
+
+        document.getElementById(
+            "simulationStatus"
+        ).innerText =
+            "✅ Simulation completed";
+
+
+        return;
+
+    }
+
+
+    const event =
+        simulationEvents[
+            simulationIndex
+        ];
+
+
+    document.getElementById(
+        "activity"
+    ).value =
+        event.activity;
+
+
+    document.getElementById(
+        "focusDuration"
+    ).value =
+        event.focus_duration;
+
+
+    document.getElementById(
+        "notification"
+    ).value =
+        event.notification;
+
+
+    analyzeNotification(event);
+
+
+    simulationIndex++;
+
+
+    simulationTimer =
+        setTimeout(
+            runNextSimulation,
+            3000
+        );
+
+}
+
+
+function stopSimulation() {
+
+    simulationRunning = false;
+
+
+    clearTimeout(
+        simulationTimer
+    );
+
+
+    document.getElementById("mainStatusIndicator").innerText = "🟢";
+    document.getElementById("mainStatusText").innerText = "SYSTEM READY";
+    document.getElementById("simStatusText").innerText = "READY";
+    document.getElementById("simStatusText").style.color = "#facc15";
+    document.getElementById("simulationStatus").innerText = "✅ Simulation completed";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

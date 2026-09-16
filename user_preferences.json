@@ -1,0 +1,9 @@
+{
+    "emergency": 100,
+    "work": 80,
+    "calendar": 80,
+    "college": 60,
+    "personal": 50,
+    "social": 30,
+    "advertisement": 5
+}
