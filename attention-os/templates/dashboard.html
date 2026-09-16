@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AttentionOS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header glass">
+            <div class="logo">
+                <i class="fa-solid fa-brain"></i>
+                <h1>AttentionOS</h1>
+            </div>
+            <p class="subtitle">Cognitive Environment Management Agent</p>
+        </header>
+
+        <div class="main-grid">
+            <!-- Screen 1: Attention Dashboard -->
+            <section class="panel glass" id="dashboard-panel">
+                <h2><i class="fa-solid fa-gauge-high"></i> Current State</h2>
+                <div class="state-display" id="state-display">
+                    <!-- Dynamic Content -->
+                    <div class="state-icon pulse" id="state-icon">🔴</div>
+                    <h3 id="state-name">DEEP FOCUS</h3>
+                    <p class="focus-score" id="focus-score">Focus Score: 87%</p>
+                </div>
+                
+                <div class="activity-info">
+                    <div class="info-row">
+                        <span class="label">Current Activity</span>
+                        <span class="value" id="current-activity"><i class="fa-solid fa-laptop-code"></i> Software Development</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Focus Duration</span>
+                        <span class="value duration" id="focus-duration">01:42:18</span>
+                    </div>
+                </div>
+
+                <div class="demo-controls">
+                    <button id="btn-start-focus" class="btn primary"><i class="fa-solid fa-lock"></i> START FOCUS SESSION</button>
+                    <button id="btn-reset-state" class="btn secondary"><i class="fa-solid fa-mug-hot"></i> TAKE A BREAK</button>
+                </div>
+            </section>
+
+            <!-- Screen 2: Decision Feed -->
+            <section class="panel glass" id="feed-panel">
+                <h2><i class="fa-solid fa-list-ul"></i> Agent Decision Feed</h2>
+                <div class="feed-list" id="decision-feed">
+                    <!-- Dynamic Feed Items -->
+                </div>
+                
+                <!-- Simulation Controls for Demo -->
+                <div class="simulation-controls">
+                    <h3>Simulate Event</h3>
+                    <div class="sim-buttons">
+                        <button class="btn sim-btn instagram" onclick="simulateEvent('instagram')"><i class="fa-brands fa-instagram"></i> Instagram</button>
+                        <button class="btn sim-btn whatsapp" onclick="simulateEvent('whatsapp')"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+                        <button class="btn sim-btn calendar" onclick="simulateEvent('calendar')"><i class="fa-regular fa-calendar"></i> Meeting</button>
+                        <button class="btn sim-btn emergency" onclick="simulateEvent('emergency')"><i class="fa-solid fa-phone"></i> Emergency</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screen 3: Agent Learning -->
+            <section class="panel glass" id="learning-panel">
+                <h2><i class="fa-solid fa-network-wired"></i> Agent Learning</h2>
+                <div class="learning-list" id="learning-list">
+                    <!-- Dynamic Preferences -->
+                </div>
+                <div class="learning-footer">
+                    <div class="confidence">
+                        <span>Model Confidence:</span>
+                        <span class="confidence-value" id="confidence-value">91%</span>
+                    </div>
+                    <button id="btn-reset-learning" class="btn text-btn">Reset Knowledge</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
